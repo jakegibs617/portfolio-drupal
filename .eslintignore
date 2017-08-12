@@ -2,9 +2,9 @@ core/assets/vendor/**/*
 core/modules/locale/tests/locale_test.js
 vendor/**/*
 sites/**/files/**/*
+sites/**/files/php/twig/**/*
 libraries/**/*
 sites/**/libraries/**/*
 profiles/**/libraries/**/*
 **/js_test_files/**/*
 **/node_modules/**/*
-sites/default/files/php/twig/*
