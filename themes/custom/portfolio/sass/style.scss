@@ -17,19 +17,114 @@
 @import "sidebar";
 @import "footer";
 
+/* Header */
+.page-header{
+	display: block;
+	text-align: center;
+}
+.page-header a{
+    color: rgba(0,0,0,0);
+    font-size: 1px;
+}
+div#block-portfolio-branding img{
+	width: 200px;
+}
+/* Navigation */
+.navigation {
+	text-align: center;
+	font-family: "proxima-nova", "helvetica", "sans-serif";
+    font-size: 14px;
+    line-height: 2em;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-style: normal;
+}
+.navigation li{
+	font-size: 20px;
+	color: #555;
+	display: inline-block;
+	padding:5px;
+}
+.navigation a{
+	color: #999;
+	text-decoration: none;
+}
+.navigation a:hover{
+	color: #555;
+}
 
-/* Sidebar */
+
+
+/* Left Sidebar */
 .layout-sidebar{
-	padding: 25px;
+	/*padding: 25px;*/
 }
 
 /* Main Content */
 .layout-content {
-	background-color: tomato;
+	background-color: #fff;
+	padding: 25px;
+	text-align: center;
+	font-family: "proxima-nova", "helvetica", "sans-serif";
+    font-size: .5rem;
+    line-height: 2em;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-style: normal;
+}
+.layout-content a{
+	text-decoration: none;
+	color: #8e8e8e;
+}
+
+.layout-content a:hover{
+	color: #555;
+}
+.layout-content img{
+	max-width:100%;
+	display: block;
+	width: auto;
+	height: auto;
+	margin: auto;
+}
+.views-field-title .field-content a{
+	font-size: 1rem;
+	display: block;
+	padding-top: 20px;
+}
+.views-field.views-field-field-description{
+    text-transform: none;
+    padding-bottom: 10px;
 }
 
 /* Footer */
 footer {
-	background-color: #333;
-	margin: 25px;
+	background-color: #8e8e8e;
+	padding: 50px;
+	text-align: center;
+	    margin-right: auto;
+    margin-left: auto;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+    font-family: 'Proxima Nova', 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
+footer a{
+	color: #000;
+	text-decoration: none;
+	padding: 25px;
+	font-family: "proxima-nova", "helvetica", "sans-serif";
+    font-size: .75rem;
+    line-height: 2em;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-style: normal;
+}
+

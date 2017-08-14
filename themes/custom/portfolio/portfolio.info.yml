@@ -10,7 +10,9 @@ stylesheets-remove:
     - core/themes/stable/css/system/components/align.module.css
     - core/themes/stable/css/views/views.module.css
 regions:
-    content: 'Main Content'
     header: 'Header'
+    navigation: 'Navigation'
+    secondary-menu: 'Secondary Menu'
+    content: 'Main Content'
+    left-sidebar: 'Left Sidebar'
     footer: 'Footer'
-    sidebar: 'Sidebar'

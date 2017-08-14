@@ -1,7 +1,18 @@
 <div class="layout-container">
 
-  <header role="banner" class="page-header">
-    <a href="/"><img id="site-title" src="/themes/custom/portfolio/images/site-title.jpg"></a> 
+   {% if page.header %}
+    <header role="banner" class="page-header">
+      {{ page.header }}
+    </header>
+  {% endif %}
+
+  {% if page.navigation %}
+    <div role="navigation" class="navigation">
+      {{ page.navigation }}
+      {{ page.secondary_menu }}
+      
+    </div>
+  {% endif %}
 
   <main role="main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
@@ -9,13 +20,14 @@
       {{ page.content }}
     </div>{# /.layout-content #}
 
-    {% if page.sidebar %}
+    {% if page.left-sidebar %}
       <aside class="layout-sidebar" role="complementary">
         {{ page.sidebar }}
       </aside>
     {% endif %}
 
   </main>
+
 
   {% if page.footer %}
     <footer role="contentinfo">
