@@ -42,6 +42,7 @@ use Drupal\user\UserInterface;
  *     "delete-form" = "/block/{block_content}/delete",
  *     "edit-form" = "/block/{block_content}",
  *     "collection" = "/admin/structure/block/block-content",
+ *     "create" = "/block",
  *   },
  *   translatable = TRUE,
  *   entity_keys = {
@@ -51,6 +52,11 @@ use Drupal\user\UserInterface;
  *     "label" = "info",
  *     "langcode" = "langcode",
  *     "uuid" = "uuid"
+ *   },
+ *   revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log"
  *   },
  *   bundle_entity_type = "block_content_type",
  *   field_ui_base_route = "entity.block_content_type.edit_form",

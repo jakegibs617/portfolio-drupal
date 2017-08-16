@@ -28,7 +28,7 @@ abstract class OutsideInJavascriptTestBase extends JavascriptTestBase {
    * @param string $theme
    *   The theme.
    */
-  public function enableTheme($theme) {
+  protected function enableTheme($theme) {
     // Enable the theme.
     \Drupal::service('theme_installer')->install([$theme]);
     $theme_config = \Drupal::configFactory()->getEditable('system.theme');
@@ -116,18 +116,6 @@ abstract class OutsideInJavascriptTestBase extends JavascriptTestBase {
     // Hovering over the element itself with should be enough, but does not
     // work. Manually remove the visually-hidden class.
     $this->getSession()->executeScript("jQuery('{$selector} .contextual .trigger').toggleClass('visually-hidden');");
-  }
-
-  /**
-   * Waits for Toolbar to load.
-   */
-  protected function waitForToolbarToLoad() {
-    $web_assert = $this->assertSession();
-    // Waiting for Toolbar module.
-    // @todo Remove the hack after https://www.drupal.org/node/2542050.
-    $this->assertElementVisibleAfterWait('css', '.toolbar-fixed');
-    // Waiting for Toolbar animation.
-    $web_assert->assertWaitOnAjaxRequest();
   }
 
   /**

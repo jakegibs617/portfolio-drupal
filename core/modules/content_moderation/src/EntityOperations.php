@@ -9,13 +9,13 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\content_moderation\Form\EntityModerationForm;
-use Drupal\workflows\WorkflowInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a class for reacting to entity events.
+ *
+ * @internal
  */
 class EntityOperations implements ContainerInjectionInterface {
 
@@ -103,14 +103,14 @@ class EntityOperations implements ContainerInjectionInterface {
     if ($entity->moderation_state->value) {
       $workflow = $this->moderationInfo->getWorkflowForEntity($entity);
       /** @var \Drupal\content_moderation\ContentModerationState $current_state */
-      $current_state = $workflow->getState($entity->moderation_state->value);
+      $current_state = $workflow->getTypePlugin()->getState($entity->moderation_state->value);
 
       // This entity is default if it is new, a new translation, the default
       // revision, or the default revision is not published.
       $update_default_revision = $entity->isNew()
         || $entity->isNewTranslation()
         || $current_state->isDefaultRevisionState()
-        || !$this->isDefaultRevisionPublished($entity, $workflow);
+        || !$this->moderationInfo->isDefaultRevisionPublished($entity);
 
       // Fire per-entity-type logic for handling the save process.
       $this->entityTypeManager->getHandler($entity->getEntityTypeId(), 'moderation')->onPresave($entity, $update_default_revision, $current_state->isPublishedState());
@@ -239,46 +239,19 @@ class EntityOperations implements ContainerInjectionInterface {
     if ($this->moderationInfo->isLiveRevision($entity)) {
       return;
     }
+    // Don't display the moderation form when when:
+    // - The revision is not translation affected.
+    // - There are more than one translation languages.
+    // - The entity has pending revisions.
+    if (!$this->moderationInfo->isPendingRevisionAllowed($entity)) {
+      return;
+    }
 
     $component = $display->getComponent('content_moderation_control');
     if ($component) {
       $build['content_moderation_control'] = $this->formBuilder->getForm(EntityModerationForm::class, $entity);
       $build['content_moderation_control']['#weight'] = $component['weight'];
     }
-  }
-
-  /**
-   * Check if the default revision for the given entity is published.
-   *
-   * The default revision is the same as the entity retrieved by "default" from
-   * the storage handler. If the entity is translated, check if any of the
-   * translations are published.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity being saved.
-   * @param \Drupal\workflows\WorkflowInterface $workflow
-   *   The workflow being applied to the entity.
-   *
-   * @return bool
-   *   TRUE if the default revision is published. FALSE otherwise.
-   */
-  protected function isDefaultRevisionPublished(EntityInterface $entity, WorkflowInterface $workflow) {
-    $default_revision = $this->entityTypeManager->getStorage($entity->getEntityTypeId())->load($entity->id());
-
-    // Ensure we are checking all translations of the default revision.
-    if ($default_revision instanceof TranslatableInterface && $default_revision->isTranslatable()) {
-      // Loop through each language that has a translation.
-      foreach ($default_revision->getTranslationLanguages() as $language) {
-        // Load the translated revision.
-        $language_revision = $default_revision->getTranslation($language->getId());
-        // Return TRUE if a translation with a published state is found.
-        if ($workflow->getState($language_revision->moderation_state->value)->isPublishedState()) {
-          return TRUE;
-        }
-      }
-    }
-
-    return $workflow->getState($default_revision->moderation_state->value)->isPublishedState();
   }
 
 }

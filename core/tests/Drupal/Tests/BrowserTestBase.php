@@ -23,14 +23,15 @@ use Drupal\Core\Url;
 use Drupal\Core\Utility\Error;
 use Drupal\FunctionalTests\AssertLegacyTrait;
 use Drupal\simpletest\AssertHelperTrait;
-use Drupal\simpletest\ContentTypeCreationTrait;
 use Drupal\simpletest\BlockCreationTrait;
+use Drupal\simpletest\ContentTypeCreationTrait;
 use Drupal\simpletest\NodeCreationTrait;
 use Drupal\simpletest\UserCreationTrait;
-use Symfony\Component\CssSelector\CssSelectorConverter;
-use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\CssSelector\CssSelectorConverter;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides a test case for functional Drupal tests.
@@ -41,7 +42,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @ingroup testing
  */
-abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
+abstract class BrowserTestBase extends TestCase {
 
   use FunctionalTestSetupTrait;
   use TestSetupTrait;

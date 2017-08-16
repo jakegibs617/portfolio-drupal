@@ -17,6 +17,8 @@ use Symfony\Component\Routing\RouteCollection;
  * Provides the following routes:
  * - The latest version tab, showing the latest revision of an entity, not the
  *   default one.
+ *
+ * @internal
  */
 class EntityModerationRouteProvider implements EntityRouteProviderInterface, EntityHandlerInterface {
 
@@ -86,7 +88,7 @@ class EntityModerationRouteProvider implements EntityRouteProviderInterface, Ent
         ->setOption('parameters', [
           $entity_type_id => [
             'type' => 'entity:' . $entity_type_id,
-            'load_forward_revision' => 1,
+            'load_pending_revision' => 1,
           ],
         ]);
 
